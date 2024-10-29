@@ -7,7 +7,7 @@ import { LuLogOut, LuPlus } from "react-icons/lu";
 
 export default function Navbar() {
   const pb = usePocketBase();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     pb.authStore.clear();
@@ -22,9 +22,11 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {pb.authStore.isValid && pb.authStore.model ? (
             <>
-              <Button className="font-semibold flex items-center gap-1" variant="secondary">
-                New Listing
-                <LuPlus className="w-5 h-5" />
+              <Button className="font-medium flex items-center gap-1" variant="secondary" asChild>
+                <a href="/new-listing">
+                  New Listing
+                  <LuPlus className="w-5 h-5" />
+                </a>
               </Button>
 
               <DropdownMenu>
@@ -38,6 +40,9 @@ export default function Navbar() {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer" asChild>
+                    <a href="/manage-listings">Manage Listings</a>
+                  </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer flex justify-between" onClick={handleSignOut}>
                     <span>Sign out</span>
                     <LuLogOut className="w-4 h-4 text-gray-400" />

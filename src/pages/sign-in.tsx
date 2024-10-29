@@ -31,7 +31,7 @@ export default function SignIn() {
       );
     } catch (err) {
       if (err instanceof ClientResponseError) {
-        setError(err.message);
+        setError("Incorrect email or password.");        
         setLoading(false);
       }
       return;
