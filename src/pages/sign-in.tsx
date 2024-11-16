@@ -10,20 +10,20 @@ export default function SignIn() {
   const pb = usePocketBase();
 
   const navigate = useNavigate();
-  
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     setError(null);
     setLoading(true);
-    
+
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    
+
     try {
       await pb.collection('users').authWithPassword(
         email,
@@ -31,7 +31,7 @@ export default function SignIn() {
       );
     } catch (err) {
       if (err instanceof ClientResponseError) {
-        setError("Incorrect email or password.");        
+        setError("Incorrect email or password.");
         setLoading(false);
       }
       return;
@@ -49,7 +49,7 @@ export default function SignIn() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+            src="/logo.svg"
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

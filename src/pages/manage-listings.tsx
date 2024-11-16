@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2, FiEye } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { Listing } from "@/types/Listing";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 export default function ManageListings() {
   const pb = usePocketBase();
@@ -29,6 +30,15 @@ export default function ManageListings() {
       setListings(resultList.items as Listing[]);
     })();
   }, []);
+
+  const handleDelete = async (id: string) => {
+    const deleted = await pb.collection('listings').delete(id);
+    if (deleted) {
+      setListings(listings.filter(listing => listing.id !== id));
+    } else {
+      alert('Failed to delete listing');
+    }
+  }
 
 
   return (
@@ -56,10 +66,24 @@ export default function ManageListings() {
                 <FiEdit className="h-4 w-4" />
                 <span className="sr-only">Edit</span>
               </Button>
-              <Button variant="destructive" size="icon" className="h-8 w-8">
-                <FiTrash2 className="h-4 w-4" />
-                <span className="sr-only">Delete</span>
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="icon" className="h-8 w-8" variant="destructive">
+                    <FiTrash2 className="h-4 w-4" />
+                    <span className="sr-only">Delete</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <div className="p-4">
+                    <h2 className="text-xl font-semibold mb-2">Delete Listing</h2>
+                    <p>Are you sure you want to delete this listing?</p>
+                    <div className="flex gap-4 mt-4">
+                      <Button onClick={() => handleDelete(listing.id)} variant="destructive">Delete</Button>
+                      <Button variant="outline">Cancel</Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
             <span className="text-gray-500 text-sm flex items-center mt-auto">
               <FiEye className="w-4 h-4 mr-1" />

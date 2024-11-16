@@ -18,7 +18,24 @@ export default function Navbar() {
   return (
     <nav className="bg-slate-500 p-3">
       <div className="flex justify-between items-center text-white">
-        <a href="/" className="font-bold text-3xl">UIUC Marketplace</a>
+        <div className="flex items-center gap-6">
+          <a href="/" className="font-bold text-3xl flex gap-2">
+            <img src="/logo.svg" alt="UIUC Marketplace" className="w-10 h-10" />
+            <span>UIUC Marketplace</span>
+          </a>
+          <Button variant="whiteLink" asChild>
+            <a className="text-base text-white">Dorm</a>
+          </Button>
+          <Button variant="whiteLink" asChild>
+            <a className="text-base text-white">Clothes</a>
+          </Button>
+          <Button variant="whiteLink" asChild>
+            <a className="text-base text-white">School</a>
+          </Button>
+          <Button variant="whiteLink" asChild>
+            <a className="text-base text-white">Leisure</a>
+          </Button>
+        </div>
         <div className="flex items-center gap-3">
           {pb.authStore.isValid && pb.authStore.model ? (
             <>
@@ -32,7 +49,7 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="w-9 h-9 cursor-pointer border-2 border-black hover:border-gray-400 transition-all">
-                    <AvatarImage src={getImageURL(pb.authStore.model, pb.authStore.model.avatar, "thumb=100x100")} alt="@shadcn" />
+                    <AvatarImage src={getImageURL(pb.authStore.model, pb.authStore.model.avatar, "thumb=100x100")} />
                     <AvatarFallback className="text-black">{(pb.authStore.model.name as string).split(' ').map(w => w[0]).join('').toUpperCase()}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
