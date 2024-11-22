@@ -1,7 +1,7 @@
 import { getImageURL, usePocketBase } from "@/lib/pb";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { LuLogOut, LuPlus } from "react-icons/lu";
 
@@ -19,10 +19,10 @@ export default function Navbar() {
     <nav className="bg-slate-500 p-3">
       <div className="flex justify-between items-center text-white">
         <div className="flex items-center gap-6">
-          <a href="/" className="font-bold text-3xl flex gap-2">
+          <Link to="/" className="font-bold text-3xl flex gap-2">
             <img src="/logo.svg" alt="UIUC Marketplace" className="w-10 h-10" />
             <span>UIUC Marketplace</span>
-          </a>
+          </Link>
           <Button variant="whiteLink" asChild>
             <a className="text-base text-white">Dorm</a>
           </Button>
@@ -40,10 +40,10 @@ export default function Navbar() {
           {pb.authStore.isValid && pb.authStore.model ? (
             <>
               <Button className="font-medium flex items-center gap-1" variant="secondary" asChild>
-                <a href="/new-listing">
+                <Link to="/new-listing">
                   New Listing
                   <LuPlus className="w-5 h-5" />
-                </a>
+                </Link>
               </Button>
 
               <DropdownMenu>
@@ -56,9 +56,11 @@ export default function Navbar() {
                 <DropdownMenuContent className="mr-2 mt-4">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer" asChild>
-                    <a href="/manage-listings">Manage Listings</a>
+                  <Link to="/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer" asChild>
+                    <Link to="/manage-listings">Manage Listings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer flex justify-between" onClick={handleSignOut}>
                     <span>Sign out</span>

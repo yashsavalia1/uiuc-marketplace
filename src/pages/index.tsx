@@ -6,13 +6,16 @@ import Navbar from "@/components/Navbar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { FiSearch } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
 
   const pb = usePocketBase();
+  const navigate = useNavigate();
 
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -28,26 +31,31 @@ export default function Home() {
     })();
   }, []);
 
+  const searchListings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate(`/search?q=${searchQuery}`);
+  }
+
   return (
     <>
       <Navbar />
       <div className="m-5 space-y-4">
-      <div className="relative flex-grow">
+      <form className="relative flex-grow" onSubmit={searchListings}>
           <FiSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
           <Input
             type="text"
             placeholder="Search for items..."
-            // value={searchQuery}
-            // onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-8"
           />
-        </div>
+        </form>
         <h2 className="text-2xl font-semibold mb-4">Featured Listings</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {loading &&
             <LoadingSpinner className="m-3 w-12 h-12" />}
           {listings.map((listing) => (
-            <a href={`/listing?id=${listing.id}`} key={listing.id}>
+            <Link to={`/listing?id=${listing.id}`} key={listing.id}>
               <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-4">
                 <img
@@ -59,7 +67,7 @@ export default function Home() {
                 <p className="text-gray-500">${listing.price}</p>
               </CardContent>
             </Card>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

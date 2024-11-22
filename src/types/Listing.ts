@@ -4,6 +4,9 @@ export interface Listing extends RecordModel {
   title: string;
   description: string;
   price: number;
-  lister: string;
   images: string[];
+  lister: string;
+  published: boolean;
+  tags: string[];
+  views: number;
 }

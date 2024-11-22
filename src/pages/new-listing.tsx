@@ -59,7 +59,7 @@ export default function NewListing() {
     <>
       <Navbar />
       <div className="container mx-auto p-4">
-        <h1 className="text-4xl font-bold mb-6">Create A New Listing</h1>
+        <h1 className="text-2xl font-bold mb-6">Create A New Listing</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">

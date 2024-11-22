@@ -42,6 +42,10 @@ export default function Listing() {
 
       setListing(result);
       setLoading(false);
+
+      // await pb.collection<ListingModel>('listings').update(id, {
+      //   views: (result?.views ?? 0) + 1
+      // });
     })();
   }, [id]);
 
@@ -123,7 +127,7 @@ export default function Listing() {
                   <span>Sold by:</span>
                   <div className="flex items-center gap-2">
                     <Avatar className="w-9 h-9 border-2 border-black">
-                      <AvatarImage src={getImageURL(pb.authStore.model, listing.expand?.lister.avatar, "thumb=100x100")} />
+                      <AvatarImage src={getImageURL(listing.expand?.lister, listing.expand?.lister.avatar, "thumb=100x100")} />
                       <AvatarFallback>{listing.expand?.lister.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <span className="font-semibold">{listing.expand?.lister.name}</span>
