@@ -29,3 +29,12 @@ export const tagInputStyles = {
     body: "transition-all border inline-flex items-center pl-2 bg-slate-100 text-secondary-foreground hover:bg-gray-200/80 disabled:cursor-not-allowed disabled:opacity-50 text-sm h-8 rounded-sm border-solid cursor-default animate-fadeIn font-normal"
   }
 }
+
+export const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  })
+}

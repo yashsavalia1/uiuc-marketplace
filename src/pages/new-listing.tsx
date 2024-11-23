@@ -28,8 +28,6 @@ export default function NewListing() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitting");
-
 
     const formData = new FormData(e.currentTarget);
     const title = formData.get("title") as string;

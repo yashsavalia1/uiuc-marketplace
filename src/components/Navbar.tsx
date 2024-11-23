@@ -62,6 +62,9 @@ export default function Navbar() {
                   <DropdownMenuItem className="cursor-pointer" asChild>
                     <Link to="/manage-listings">Manage Listings</Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer" asChild>
+                    <Link to="/chats">Chats</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer flex justify-between" onClick={handleSignOut}>
                     <span>Sign out</span>
                     <LuLogOut className="w-4 h-4 text-gray-400" />

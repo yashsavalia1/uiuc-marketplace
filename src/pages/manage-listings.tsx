@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getImageURL, usePocketBase } from "@/lib/pb";
 import { Link, useNavigate } from "react-router-dom";
-import { FiEdit, FiTrash2, FiEye } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiEye, FiEyeOff } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { Listing } from "@/types/Listing";
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -41,6 +41,26 @@ export default function ManageListings() {
       setListings(listings.filter(listing => listing.id !== id));
     } else {
       alert('Failed to delete listing');
+    }
+  }
+
+  const handlePublish = async (id: string) => {
+    const published = await pb.collection('listings').update(id, {
+      published: !listings.filter(listing => listing.id === id)[0].published,
+    });
+
+    if (published) {
+      setListings(listings.map(listing => {
+        if (listing.id === id) {
+          return {
+            ...listing,
+            published: !listing.published,
+          };
+        }
+        return listing;
+      }));
+    } else {
+      alert('Failed to publish listing');
     }
   }
 
@@ -93,10 +113,32 @@ export default function ManageListings() {
                   </div>
                 </DialogContent>
               </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="icon" className="h-8 w-8" variant={listing.published ? "default" : "green"}>
+                    {listing.published ? <FiEyeOff className="h-4 w-4" /> : <FiEye className="h-4 w-4" />}
+                    <span className="sr-only">Published</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <div className="p-4">
+                    <h2 className="text-xl font-semibold mb-2">{listing.published ? "Unpublish" : "Publish"} Listing</h2>
+                    <p>Would you like to {listing.published ? "unpublish" : "publish"} your listing for: {listing.title}?</p>
+                    <div className="flex gap-4 mt-4">
+                      <DialogClose asChild>
+                        <Button onClick={() => handlePublish(listing.id)} variant={listing.published ? "destructive" : "green"}>{listing.published ? "Unpublish" : "Publish"}</Button>
+                      </DialogClose>
+                      <DialogClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                      </DialogClose>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
+
             <span className="text-gray-500 text-sm flex items-center mt-auto">
-              <FiEye className="w-4 h-4 mr-1" />
-              {listing.views} views
+              {listing.published ? "Published" : "Unpublished"}
             </span>
           </Card>
         ))}

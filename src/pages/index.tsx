@@ -21,6 +21,7 @@ export default function Home() {
     (async () => {
       setLoading(true);
       const resultList = await pb.collection('listings').getList(1, 50, {
+        filter: 'published=true',
         sort: 'created',
         order: 'desc',
         expand: "lister",

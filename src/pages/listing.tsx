@@ -8,7 +8,7 @@ import { FiCalendar, FiChevronLeft, FiChevronRight, FiDollarSign, FiMessageCircl
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Navbar from "@/components/Navbar";
 import { LoadingSpinner } from "@/components/ui/spinner";
-
+import { Chat } from "@/components/chat";
 
 export default function Listing() {
 
@@ -22,7 +22,7 @@ export default function Listing() {
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
-
+  const [openChat, setOpenChat] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -135,14 +135,15 @@ export default function Listing() {
                 </div>
               </Card>
 
-              <div className="flex space-x-4">
-                <Button className="flex-1">
+              {listing.lister !== pb.authStore.model?.id && <div className="flex space-x-4">
+                <Button className="flex-1" onClick={() => setOpenChat(!openChat)}>
                   <FiMessageCircle className="h-5 w-5 mr-2" />
                   Contact Seller
                 </Button>
-              </div>
+              </div>}
             </div>
-          </div><div className="mt-12">
+          </div>
+          <div className="mt-12">
             <h2 className="text-2xl font-medium mb-4">Related Listings</h2>
             {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 {relatedListings.map((item) => (
@@ -164,6 +165,10 @@ export default function Listing() {
           </div>
         </>}
       </div>
+      {listing &&
+        listing.lister !== pb.authStore.model?.id &&
+        <Chat lister={listing?.expand?.lister} show={openChat} setShow={setOpenChat} />
+      }
     </>
   )
 }
