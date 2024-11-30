@@ -4,7 +4,7 @@ import { LoadingSpinner } from "@/components/ui/spinner";
 import { usePocketBase } from "@/lib/pb";
 import { ClientResponseError } from "pocketbase";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
   const pb = usePocketBase();
@@ -48,7 +48,7 @@ export default function SignIn() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            alt="Your Company"
+            alt="UIUC Marketplace"
             src="/logo.svg"
             className="mx-auto h-10 w-auto"
           />
@@ -80,11 +80,6 @@ export default function SignIn() {
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold hover:text-gray-500">
-                    Forgot password?
-                  </a>
-                </div>
               </div>
               <div className="mt-2">
                 <Input
@@ -117,9 +112,9 @@ export default function SignIn() {
 
           <p className="mt-10 text-center text-sm">
             <span className="text-gray-500">Not a member?</span>{' '}
-            <a href="#" className="font-semibold hover:text-gray-500">
+            <Link to="/create-account" className="font-semibold hover:text-gray-500">
               Create an account
-            </a>
+            </Link>
           </p>
         </div>
       </div>

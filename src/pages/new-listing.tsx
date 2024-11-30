@@ -38,7 +38,7 @@ export default function NewListing() {
       title,
       description,
       price,
-      "lister": pb.authStore.model?.id,
+      lister: pb.authStore.model?.id,
       images,
       tags: tags.map(tag => tag.text)
     };
@@ -46,7 +46,6 @@ export default function NewListing() {
     try {
       const listing = await pb.collection('listings').create<Listing>(data);
 
-      // TODO: create listing page
       navigate(`/listing?id=${listing.id}`);
     } catch (err) {
       console.error(err);
