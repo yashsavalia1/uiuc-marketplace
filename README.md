@@ -1,50 +1,26 @@
-# React + TypeScript + Vite
+# UIUC Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The [UIUC Marketplace](https://uiuc-marketplace.vercel.app/) is a web application that allows UIUC students to buy and sell items with other students. The application allows users to create an account, post items for sale, and view items for sale. The application also allows users to search for items by category and price as well letting users chat with each other to negotiate prices and arrange meetups. The application was built using React, Typescript and PocketBase as well as TailwindCSS and shadcn for the UI.
 
-Currently, two official plugins are available:
+## Technical Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```mermaid
 
-## Expanding the ESLint configuration
+flowchart LR
+  PocketBase<-->R[React Frontend]
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Environment Overview and Setup
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+The PocketBase API is hosted on PocketHost and the React frontend is hosted on Vercel. The application can be accessed at [UIUC Marketplace](https://uiuc-marketplace.vercel.app/) and the database/API can be accessed at [PocketBase](https://uiuc-marketplace.pockethost.io/_) but requires login credentials which can be issued by current developers. The web app can also be run locally by cloning the repository and running the following commands:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
+
+npm run dev
 ```
+
+## Developers
+
+- **Yash Savalia**: Managed database/api, and implemented frontend.
